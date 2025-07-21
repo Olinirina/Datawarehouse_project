@@ -1,5 +1,6 @@
 package com.Laborex.Datawarehouse.Model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -18,7 +19,32 @@ public class Stock {
     @JoinColumn(name = "codeProduit") 
     private Produit produit;
 
+   
     private int quantiteStocke;
+    
+    public TypeStock getTypeStock() {
+		return typeStock;
+	}
+
+	public void setTypeStock(TypeStock typeStock) {
+		this.typeStock = typeStock;
+	}
+
+	public Stock(String codeStock, Temps temps, Produit produit, int quantiteStocke, TypeStock typeStock) {
+		super();
+		this.codeStock = codeStock;
+		this.temps = temps;
+		this.produit = produit;
+		this.quantiteStocke = quantiteStocke;
+		this.typeStock = typeStock;
+	}
+
+	public Stock() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	private TypeStock typeStock;
 
     // Getters & Setters
 

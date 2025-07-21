@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.Laborex.Datawarehouse.Model.Produit;
 import com.Laborex.Datawarehouse.Model.Stock;
 import com.Laborex.Datawarehouse.Model.Temps;
+import com.Laborex.Datawarehouse.Model.TypeStock;
 import com.Laborex.Datawarehouse.Repository.ProduitRepository;
 import com.Laborex.Datawarehouse.Repository.StockRepository;
 import com.Laborex.Datawarehouse.Repository.TempsRepository;
@@ -57,6 +58,7 @@ public class StockExcelImporter implements ExcelImportation{
 			//Stock
 			String codeStock= getStringValue(row.getCell(columnIndexMap.get("codeStock")));
 			int quantiteStocke= (int) getNumericValue(row.getCell(columnIndexMap.get("quantite")));
+			String typeStock=getStringValue(row.getCell(columnIndexMap.get("typeStock")));
 			
 			//Produits
 			String codeProduit = getStringValue(row.getCell(columnIndexMap.get("codeProduit")));
@@ -94,13 +96,22 @@ public class StockExcelImporter implements ExcelImportation{
 
 			
 			
-			//Enregistrement ou mise a jour de la vente
+			//Enregistrement ou mise a jour du stock
+			
 			Optional<Stock> stockOpt=stockRepository.findById(codeStock);
 			Stock stock=stockOpt.orElse(new Stock());
 			stock.setCodeStock(codeStock);
 			stock.setProduit(produit);
 			stock.setQuantiteStocke(quantiteStocke);
 			stock.setTemps(date);
+			
+			if ("INITIAL".equalsIgnoreCase(typeStock)) {
+			    stock.setTypeStock(TypeStock.INITIAL);
+			} else if ("FINAL".equalsIgnoreCase(typeStock)) {
+			    stock.setTypeStock(TypeStock.FINAL);
+			} else {
+			    stock.setTypeStock(TypeStock.REAPPRO_INTER);
+			}
 			stockRepository.save(stock);
 			
 		}

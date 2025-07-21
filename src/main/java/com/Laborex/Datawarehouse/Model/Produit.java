@@ -22,12 +22,14 @@ public class Produit {
     @ManyToOne
     @JoinColumn(name = "codeCatPro") // clé étrangère
     private Categorie_Produit categorie;
+    
+    private int seuilStockMinimal;
 	public Produit() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Produit(String codeProduit, String nomProduit, double prixAchat, double prixVente, int unite,
-			Fournisseur fournisseur, Categorie_Produit categorie) {
+			Fournisseur fournisseur, Categorie_Produit categorie, int seuilStockMinimal) {
 		super();
 		this.codeProduit = codeProduit;
 		this.nomProduit = nomProduit;
@@ -36,12 +38,19 @@ public class Produit {
 		this.unite = unite;
 		this.fournisseur = fournisseur;
 		this.categorie = categorie;
+		this.seuilStockMinimal=seuilStockMinimal;
 	}
 	public String getCodeProduit() {
 		return codeProduit;
 	}
 	public void setCodeProduit(String codeProduit) {
 		this.codeProduit = codeProduit;
+	}
+	public int getSeuilStockMinimal() {
+		return seuilStockMinimal;
+	}
+	public void setSeuilStockMinimal(int seuilStockMinimal) {
+		this.seuilStockMinimal = seuilStockMinimal;
 	}
 	public String getNomProduit() {
 		return nomProduit;

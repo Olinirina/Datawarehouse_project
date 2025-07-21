@@ -2,6 +2,7 @@ package com.Laborex.Datawarehouse.Model;
 
 import java.sql.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -9,6 +10,7 @@ import jakarta.persistence.Id;
 public class Temps {
 	@Id
 	private String code_temps;
+	@Column(name = "temps")
 	private Date temps;
 	private int jour;
 	private int mois;

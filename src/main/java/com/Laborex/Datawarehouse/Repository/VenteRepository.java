@@ -12,10 +12,15 @@ import com.Laborex.Datawarehouse.Model.Vente;
 @Repository
 public interface VenteRepository extends JpaRepository<Vente, String> {
 
-    @Query("SELECT SUM(v.quantiteVendu) FROM Vente v " +
-           "WHERE v.produit.codeProduit = :codeProduit " +
-           "AND v.temps.temps BETWEEN :debut AND :fin")
-    Integer sumQuantiteByProduitAndDateRange(@Param("codeProduit") String codeProduit,
-                                              @Param("debut") Date debut,
-                                              @Param("fin") Date fin);
+	@Query("""
+		    SELECT SUM(v.quantiteVendu)
+		    FROM Vente v
+		    WHERE EXTRACT(MONTH FROM v.temps.temps) = :mois
+		      AND EXTRACT(YEAR FROM v.temps.temps) = :annee
+		      AND v.produit.codeProduit = :codeProduit
+		""")
+		Double quantiteVendueParProduitEtMois(@Param("codeProduit") String codeProduit,
+		                                      @Param("mois") int mois,
+		                                      @Param("annee") int annee);
+
 }

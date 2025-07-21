@@ -61,6 +61,7 @@ public class ProduitExcelImporter implements ExcelImportation {
             String nom = getStringValue(row.getCell(columnIndexMap.get("nomProduit")));
             double prixachat = getNumericValue(row.getCell(columnIndexMap.get("prixAchat")));
             int unite = (int) getNumericValue(row.getCell(columnIndexMap.get("unite")));
+            int seuilMinimal=(int) getNumericValue(row.getCell(columnIndexMap.get("seuil")));
 
             //Categories
             String codeCat = getStringValue(row.getCell(columnIndexMap.get("codeCat")));
@@ -134,6 +135,7 @@ public class ProduitExcelImporter implements ExcelImportation {
             produit.setUnite(unite);
             produit.setCategorie(cat);
             produit.setFournisseur(frns);
+            produit.setSeuilStockMinimal(seuilMinimal);
 
             produitRepository.save(produit);
         }
